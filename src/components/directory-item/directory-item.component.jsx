@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const DirectoryItem = ({ category }) => {
   const { imageUrl, title } = category;
   const navigate = useNavigate();
-  const goToCategoryHandler = () => navigate(`shop/${title.toLowerCase()}`);
+  const goToCategoryHandler = () => navigate(`/shop/${title.toLowerCase()}`);
   return (
     <DirectoryContainer onClick={goToCategoryHandler}>
       <BackgroundImage imageUrl={imageUrl} />
