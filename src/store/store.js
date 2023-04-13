@@ -9,7 +9,7 @@ import { rootSaga } from "./root-saga";
 
 const persistConfig = {
     key:'root',
-    blacklist:['user'],
+    whitelist:['cart'],
     storage
 }
 
