@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 
 import CategoriesPreview from "../../routes/categories-preview/categories-preview.components";
 import Category from "../../routes/category/category.component";
-import { fetchcategoriesAsync } from "../../store/categories/category.action";
+import { fetchCategoriesStart } from "../../store/categories/category.action";
 
 const Shop = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchcategoriesAsync())
+    dispatch(fetchCategoriesStart())
   }, []);
   return (
     <Routes>

@@ -1,9 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import {
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../../components/form-input/form-input.component";
 import Button, {
@@ -11,17 +8,19 @@ import Button, {
 } from "../../components/button/button.component";
 
 import { ButtonContainer, SignUpContainer } from "./sign-in-form.styles";
+import { googleSignInStart,emailSignInStart } from "../../store/user/user.action";
 
 const defaultFormFields = {
   email: "",
   password: "",
 };
 const SignInForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    dispatch(googleSignInStart())
   };
 
   const handleChange = (event) => {
@@ -33,23 +32,21 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      dispatch(emailSignInStart(email,password));
       setFormFields(defaultFormFields);
     } catch (err) {
-      switch (err.code) {
-        case "auth/wrong-password":
-          alert("Incorrect Password or Email");
-          break;
-        case "auth/user-not-found":
-          alert("No user associated with this email");
-          break;
-        default:
-          console.log(err);
-      }
-      if (err.code === "auth/wrong-password") return;
+      // switch (err.code) {
+      //   case "auth/wrong-password":
+      //     alert("Incorrect Password or Email");
+      //     break;
+      //   case "auth/user-not-found":
+      //     alert("No user associated with this email");
+      //     break;
+      //   default:
+      //     console.log(err);
+      // }
+      // if (err.code === "auth/wrong-password") return;
+      console.log(err)
     }
   };
   return (
